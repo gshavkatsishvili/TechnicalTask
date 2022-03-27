@@ -7,10 +7,11 @@ import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
+import services.interfaces.IUserService;
 
 import static io.restassured.RestAssured.given;
 
-public class UserService {
+public class UserService implements IUserService {
 
     public UserService(String baseUrl, String urlPath) {
         _baseUrl = baseUrl;

@@ -21,3 +21,6 @@
 # Project generated files
 .idea
 *.iml
+target
+.allure/
+allure-results
