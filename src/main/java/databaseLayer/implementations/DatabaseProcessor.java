@@ -13,7 +13,7 @@ import java.util.Properties;
 public class DatabaseProcessor implements IDatabaseProcessor {
 
     public DatabaseProcessor() throws IOException {
-        String filePath = "./src/main/app.properties";
+        String filePath = "./src/main/resources/app.properties";
         Properties properties = new Properties();
         FileInputStream inputStream = new FileInputStream(filePath);
         properties.load(inputStream);
@@ -52,7 +52,7 @@ public class DatabaseProcessor implements IDatabaseProcessor {
             String status = (String) record.get("status");
 
             preparedStatement.setLong(1, id);
-            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, name);
             preparedStatement.setString(3, email);
             preparedStatement.setString(4, gender);
             preparedStatement.setString(5, status);

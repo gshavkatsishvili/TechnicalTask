@@ -1,12 +1,15 @@
 package testSuites;
 
-import io.qameta.allure.Description;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import services.implementations.UserService;
 import services.interfaces.IUserService;
+
+import java.io.File;
+
+import static io.restassured.module.jsv.JsonSchemaValidator.*;
 
 public class User_Test_Suite {
     IUserService userService = new UserService("https://gorest.co.in", "/public-api/users");
@@ -27,5 +30,11 @@ public class User_Test_Suite {
         JsonPath response = userService.getResponseJsonData(responseBody);
         Object statusCode = response.get("code");
         Assert.assertEquals(statusCode, 200, "Check if inner status code is equal to 200");
+    }
+
+    @Test
+    public void TC04_Check_If_API_Response_And_Schema_Are_Equal() {
+        File schema = new File(System.getProperty("user.dir") + "/src/main/resources/schema.JSON");
+        responseBody.body(matchesJsonSchema(schema));
     }
 }
