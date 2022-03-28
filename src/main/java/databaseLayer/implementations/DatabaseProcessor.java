@@ -5,19 +5,30 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
+import java.util.Properties;
 
-public abstract class DatabaseProcessor implements IDatabaseProcessor {
+public class DatabaseProcessor implements IDatabaseProcessor {
 
-    public DatabaseProcessor(String connectionString, String user, String password) {
+    public DatabaseProcessor() throws IOException {
+        String filePath = "./src/main/app.properties";
+        Properties properties = new Properties();
+        FileInputStream inputStream = new FileInputStream(filePath);
+        properties.load(inputStream);
+        String connectionString = properties.getProperty("connectionString");
+        String user = properties.getProperty("user");
+        String password = properties.getProperty("password");
+
         _connectionString = connectionString;
         _user = user;
         _password = password;
     }
 
-    private final String _connectionString; // = "jdbc:sqlserver://localhost;databaseName=Users";
-    private final String _user; // = "admin";
-    private final String _password; // = "Aa123456";
+    private final String _connectionString;
+    private final String _user;
+    private final String _password;
 
     public Connection ConnectToDB() throws SQLException {
         Connection connection = DriverManager.getConnection(_connectionString, _user, _password);
