@@ -69,7 +69,7 @@ public class UserService implements IUserService {
         response.time(Matchers.lessThan(milliSeconds));
     }
 
-    public JsonPath getResponseJsonData(ValidatableResponse response) {
+    public JsonPath GetResponseJsonData(ValidatableResponse response) {
         Response getResponse = response.extract().response();
         return getResponse.jsonPath();
     }
